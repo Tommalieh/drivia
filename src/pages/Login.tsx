@@ -16,6 +16,7 @@ const Login = () => {
       toast.success('Login successful!');
       localStorage.setItem('token', res.data.token); // if applicable
       navigate('/home');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Login failed');
     } finally {
