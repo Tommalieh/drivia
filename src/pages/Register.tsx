@@ -16,7 +16,8 @@ const Register = () => {
       toast.success('Registration successful!');
       localStorage.setItem('token', res.data.token); // Optional: only if your API returns a token
       navigate('/home');
-    } catch (error: Error) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       toast.error(error.response?.data?.message || 'Registration failed');
     } finally {
       setLoading(false);

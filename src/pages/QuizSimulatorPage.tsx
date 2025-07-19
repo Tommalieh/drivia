@@ -52,6 +52,7 @@ const QuizSimulatorPage: React.FC = () => {
 
       // Option 2 (if you want QuizPage to fetch questions itself):
       // navigate(`/quiz/${response.quizSessionId}`);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err?.response?.data?.message || 'Failed to start quiz. Please try again.');
     } finally {

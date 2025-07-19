@@ -17,7 +17,7 @@ type QuestionWithLocal = QuizQuestion & {
   skipped?: boolean;
 };
 
-const QUIZ_LENGTH = 40;
+// const QUIZ_LENGTH = 40;
 const QUIZ_TIME_SEC = 60 * 30;
 
 const QuizPage: React.FC = () => {
@@ -30,6 +30,7 @@ const QuizPage: React.FC = () => {
   const [timer, setTimer] = useState(QUIZ_TIME_SEC);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const [showUnansweredMsg, setShowUnansweredMsg] = useState(false);
@@ -123,6 +124,7 @@ const QuizPage: React.FC = () => {
 
       setResult(response.data);
       setSubmitted(true);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err?.response?.data?.message || 'Failed to submit quiz.');
     } finally {
