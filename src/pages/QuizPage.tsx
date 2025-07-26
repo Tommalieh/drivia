@@ -182,8 +182,8 @@ const QuizPage: React.FC = () => {
         let border = '';
         let tooltip = '';
         if (typeof question.userAnswer === 'boolean') {
-          bg = 'bg-blue-100';
-          border = 'border-blue-500';
+          bg = 'bg-tertiary/50';
+          border = 'border-tertiary';
           tooltip = 'Answered';
         } else if (question.flagged) {
           bg = 'bg-yellow-100';
@@ -219,7 +219,7 @@ const QuizPage: React.FC = () => {
   );
 
   return (
-    <div className='flex flex-row items-start justify-center min-h-screen bg-muted py-10'>
+    <div className='flex flex-row items-start justify-center bg-muted py-10'>
       {/* Main Content */}
       <div className='flex flex-col items-center flex-1'>
         <div className='w-full max-w-4xl flex justify-between items-center mb-6'>
@@ -254,19 +254,23 @@ const QuizPage: React.FC = () => {
           <div className='flex gap-4 mb-2'>
             <Button
               size='lg'
-              variant={q.userAnswer === true ? 'default' : 'outline'}
-              className='flex-1 text-xl py-6'
-              onClick={() => handleAnswer(true)}
-            >
-              True
-            </Button>
-            <Button
-              size='lg'
               variant={q.userAnswer === false ? 'default' : 'outline'}
-              className='flex-1 text-xl py-6'
+              className={`flex-1 text-xl py-6 hover:bg-tertiary/50 ${
+                q.userAnswer === false ? 'bg-tertiary' : 'bg-background'
+              }`}
               onClick={() => handleAnswer(false)}
             >
               False
+            </Button>
+            <Button
+              size='lg'
+              variant={q.userAnswer === true ? 'default' : 'outline'}
+              className={`flex-1 text-xl py-6 hover:bg-tertiary/50 ${
+                q.userAnswer === true ? 'bg-tertiary' : 'bg-background'
+              }`}
+              onClick={() => handleAnswer(true)}
+            >
+              True
             </Button>
           </div>
           <Button variant='outline' className='w-full' onClick={handleSkip} type='button'>

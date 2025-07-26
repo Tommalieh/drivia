@@ -46,7 +46,7 @@ const QuizSimulatorPage: React.FC = () => {
       });
 
       // Option 1: Pass sessionId in the route and questions in state
-      navigate(`/quiz/${response.quizSessionId}`, {
+      navigate(`/quiz-simulator/${response.quizSessionId}`, {
         state: { questions: response.questions },
       });
 

@@ -34,11 +34,8 @@ const ChapterPage: React.FC = () => {
       navigate('/theory');
       return;
     }
-
     getChapterById(chapterId)
-      .then((response) => {
-        setChapter(response.data);
-      })
+      .then((response) => setChapter(response.data))
       .catch((err) => {
         console.error('Failed to fetch chapter:', err);
         navigate('/theory');
@@ -46,8 +43,6 @@ const ChapterPage: React.FC = () => {
   }, [chapterId, navigate]);
 
   useEffect(() => {
-    console.log('chapter', chapter);
-
     if (chapter && chapter.id && sections[currentIndex]) {
       postSectionProgress({
         sectionId: sections[currentIndex].id,
@@ -82,42 +77,46 @@ const ChapterPage: React.FC = () => {
 
   return (
     <div className='p-6 max-w-screen-xl mx-auto'>
+      {/* Back button */}
       <button
         onClick={() => navigate(-1)}
-        className='flex items-center gap-2 text-sm text-gray-600 hover:text-black mb-4 cursor-pointer'
+        className='flex items-center gap-2 text-sm font-medium text-secondary/70 hover:text-secondary transition mb-4 cursor-pointer'
       >
         ← Back
       </button>
 
+      {/* Header */}
       <header className='mb-6'>
-        <h2 className='text-2xl font-bold text-gray-800'>{chapter.title}</h2>
+        <h2 className='text-2xl font-bold text-tertiary mb-1'>{chapter.title}</h2>
         <p className='text-gray-500'>{chapter.summary}</p>
       </header>
 
+      {/* Content Grid */}
       <div className='grid grid-cols-1 md:grid-cols-[2fr_4fr] gap-6 mb-6'>
         {/* Image block */}
-        <div className='w-full rounded-lg overflow-hidden shadow'>
-          <img src={imageUrl} alt={`Section ${currentIndex + 1}`} className='w-full h-full object-cover rounded-lg' />
+        <div className='h-96 w-full rounded-lg overflow-hidden shadow-lg border-2 border-tertiary/50 bg-tertiary/5 flex items-center justify-center'>
+          {imageUrl ? (
+            <img src={imageUrl} alt={`Section ${currentIndex + 1}`} className='w-full h-full object-cover rounded-lg' />
+          ) : (
+            <div className='text-gray-400'>No image</div>
+          )}
         </div>
 
         {/* Text block */}
-        <div className='bg-white p-4 rounded-lg shadow h-96 overflow-y-auto'>
-          <h3 className='text-xl font-semibold mb-2'>{title}</h3>
+        <div className='bg-white p-6 rounded-lg shadow-lg h-96 overflow-y-auto border-l-4 border-tertiary/60'>
+          <h3 className='text-xl font-semibold mb-2 text-tertiary'>{title}</h3>
           <p className='text-gray-700 whitespace-pre-line'>{text}</p>
         </div>
       </div>
 
-      {/* Navigation buttons */}
-      <Pagination
-        total={sections.length}
-        current={currentIndex + 1}
-        onChange={(page) => handleNext(page)}
-        onFinish={handleFinish}
-      />
+      {/* Pagination (Buttons use green/pink/blue) */}
+      <div className='mb-8'>
+        <Pagination total={sections.length} current={currentIndex + 1} onChange={handleNext} onFinish={handleFinish} />
+      </div>
 
-      {/* Chat block */}
-      <div className='bg-white p-6 rounded-lg shadow-lg mt-6'>
-        <h4 className='text-lg font-semibold mb-2'>Ask AI for Help</h4>
+      {/* Ask AI Block */}
+      <div className='bg-white p-6 rounded-lg shadow-lg mt-6 border-l-4 border-tertiary/60'>
+        <h4 className='text-lg font-semibold mb-2 text-tertiary'>Ask AI for Help</h4>
         <p className='text-sm text-gray-600 mb-2'>Coming soon: interact with AI about this topic…</p>
         <input
           disabled

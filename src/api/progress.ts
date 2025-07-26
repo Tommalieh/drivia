@@ -1,43 +1,29 @@
-import axios from 'axios';
+import API from "./base"; // <-- Use shared API instance
 
 export interface ProgressSummary {
-    readinessScore: number;
-    totalChapters: number;
-    completedChapters: number;
-    chaptersYouRock: {
-      chapterId: string;
-      title: string;
-      completionRate: number;
-    }[];
-    chaptersToImprove: {
-      chapterId: string;
-      title: string;
-      completionRate: number;
-    }[];
-  }
+  readinessScore: number;
+  totalChapters: number;
+  completedChapters: number;
+  chaptersYouRock: {
+    chapterId: string;
+    title: string;
+    completionRate: number;
+  }[];
+  chaptersToImprove: {
+    chapterId: string;
+    title: string;
+    completionRate: number;
+  }[];
+}
 
-const API = axios.create({
-  baseURL: 'http://localhost:5159/api/theory/progress',
-});
-
-// Auth token setup (same as in theory.ts)
-API.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
-  if (token) config.headers.Authorization = `Bearer ${token}`;
-  return config;
-});
-
-// POST: Section view or complete
 export const postSectionProgress = (data: {
   sectionId: string;
   isCompleted?: boolean;
-}) => API.post('/section', data);
+}) => API.post("/theory/progress/section", data);
 
-// POST: Mark chapter as done manually
 export const postChapterProgress = (data: {
-    chapterId: string;
-    isCompleted?: boolean;
-  }) => API.post('/chapter', data);
+  chapterId: string;
+  isCompleted?: boolean;
+}) => API.post("/theory/progress/chapter", data);
 
-// GET: Progress Summary
-export const getProgressSummary = () => API.get('/summary');
+export const getProgressSummary = () => API.get<ProgressSummary>("/theory/progress/summary");

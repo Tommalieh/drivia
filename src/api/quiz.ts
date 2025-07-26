@@ -1,23 +1,4 @@
-// src/api/quiz.ts
-
-import axios from "axios";
-
-// Get token from localStorage
-const getToken = () => localStorage.getItem("token");
-
-// Setup axios instance
-const API = axios.create({
-  baseURL: "http://localhost:5159/api/quizzes",
-});
-
-// Attach Bearer token to every request
-API.interceptors.request.use((config) => {
-  const token = getToken();
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
+import API from "./base"; // <-- Use shared API instance
 
 // Type definitions
 export interface StartQuizRequest {
@@ -33,20 +14,19 @@ export interface QuizQuestion {
   imageUrl?: string;
   userAnswer: boolean | null;
 }
-
 export interface StartQuizResponse {
   quizSessionId: string;
   questions: QuizQuestion[];
 }
 
-// Start a quiz
-export const startQuiz = (data: StartQuizRequest) =>
-  API.post<StartQuizResponse>("/start", data).then((res) => res.data);
-
-// Submit a quiz
 export interface SubmitQuizRequest {
   quizSessionId: string;
   answers: { questionId: string; userAnswer: boolean }[];
 }
+
+export const startQuiz = (data: StartQuizRequest) =>
+  API.post<StartQuizResponse>("/quizzes/start", data).then((res) => res.data);
+
+
 export const submitQuiz = (data: SubmitQuizRequest) =>
-  API.post("/submit", data);
+  API.post("/quizzes/submit", data);

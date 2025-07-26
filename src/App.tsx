@@ -8,6 +8,8 @@ import ChapterPage from './pages/ChapterPage';
 import QuizSimulatorPage from './pages/QuizSimulatorPage';
 import QuizPage from './pages/QuizPage';
 import DashboardLayout from './layouts/DashboardLayout';
+import QuizResults from './pages/QuizResults';
+import MyTutor from './pages/MyTutor';
 
 function App() {
   return (
@@ -21,8 +23,10 @@ function App() {
           <Route path='/home' element={<Home />} />
           <Route path='/theory' element={<TheoryList />} />
           <Route path='/theory/:chapterId' element={<ChapterPage />} />
-          <Route path='/quiz-simulator' element={<QuizSimulatorPage />} /> {/* NEW */}
-          <Route path='/quiz/:quizSessionId' element={<QuizPage />} /> {/* NEW */}
+          <Route path='/quiz-simulator' element={<QuizSimulatorPage />} />
+          <Route path='/quiz-simulator/quiz-results' element={<QuizResults />} />
+          <Route path='/quiz-simulator/:quizSessionId' element={<QuizPage />} />
+          <Route path='/my-tutor' element={<MyTutor />} />
         </Route>
 
         {/* Auth routes - no layout */}

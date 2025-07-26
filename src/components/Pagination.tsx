@@ -61,10 +61,10 @@ const Pagination: React.FC<PaginationProps> = ({
       <button
         onClick={() => onChange(current - 1)}
         disabled={current === 1}
-        className={`px-3 py-1 rounded-md ${
+        className={`px-3 py-1 rounded-md transition ${
           current === 1
             ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
-            : 'bg-blue-600 text-white hover:bg-blue-700 cursor-pointer'
+            : 'bg-secondary/75 text-white hover:bg-secondary cursor-pointer'
         }`}
       >
         Back
@@ -76,9 +76,9 @@ const Pagination: React.FC<PaginationProps> = ({
             <button
               key={i}
               onClick={() => onChange(page)}
-              className={`px-3 py-1 rounded-md cursor-pointer ${
+              className={`px-3 py-1 rounded-md cursor-pointer transition ${
                 current === page
-                  ? 'bg-blue-700 text-white'
+                  ? 'bg-primary text-white'
                   : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-100'
               }`}
             >
@@ -95,10 +95,10 @@ const Pagination: React.FC<PaginationProps> = ({
         <button
           onClick={() => onChange(current + 1)}
           disabled={current === total}
-          className={`px-3 py-1 rounded-md ${
+          className={`px-3 py-1 rounded-md transition ${
             current === total
               ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
-              : 'bg-blue-600 text-white hover:bg-blue-700 cursor-pointer'
+              : 'bg-primary/90 text-white hover:bg-primary cursor-pointer'
           }`}
         >
           Next
